@@ -49,8 +49,8 @@ $checks = Port::for('gemz.io')->useTcp()->check([80 => 'tcp', 2525 => 'udp', 443
 // check with array for specific port 
 $checks = Port::for('gemz.io')->useTcp()->check([80, 2525, 443]);
 
-// set timeout, default is 0.25s
-$checks = Port::for('gemz.io')->setTimeout(0.4)->checks(80);
+// set timeout, default is 0.5s
+$checks = Port::for('gemz.io')->setTimeout(0.4)->check(80);
 
 // get supported protocols
 $protocols = Port::for('gemz.io')->getProtocols();

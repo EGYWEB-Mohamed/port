@@ -24,7 +24,7 @@ class Port
     protected $protocol = self::PROTOCOL_TCP;
 
     /** @var float */
-    protected $timeout = 0.25;
+    protected $timeout = 0.5;
 
     /** @var array */
     protected $protocols = ['tcp', 'tls', 'udp', 'ssl'];
@@ -122,18 +122,69 @@ class Port
     {
         $deferred = new Deferred();
 
-        $handler = @fsockopen(
-            $this->getUri($protocol), $port,$errno,$errstr, $this->timeout
-        );
+        $portIsOpen = ($protocol == self::PROTOCOL_UDP)
+            ? $this->checkUdpPort($port)
+            : $portIsOpen = $this->checkNonUdpPort($port, $protocol);
 
-        if (is_resource($handler)) {
+        if ($portIsOpen) {
             $deferred->resolve();
-            fclose($handler);
         } else {
             $deferred->reject();
         }
 
         return $deferred->promise();
+    }
+
+    protected function checkNonUdpPort(int $port, string $protocol): bool
+    {
+        $handler = @fsockopen(
+            $this->getUri($protocol), $port, $errno, $errstr, $this->timeout
+        );
+
+        if (is_resource($handler)) {
+            fclose($handler);
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function checkUdpPort($port): bool
+    {
+        $handler = @fsockopen(
+            $this->getUri(self::PROTOCOL_UDP), $port, $errno, $errstr, $this->timeout
+        );
+
+        if (! $handler) {
+            return false;
+        }
+
+        socket_set_timeout($handler, $this->timeout);
+
+        $write = fwrite($handler, "x00");
+
+        if (! $write) {
+            return false;
+        }
+
+        $startTime = time();
+
+        $header = fread($handler, 1);
+
+        $endTime = time();
+
+        $timeDiff = $endTime - $startTime;
+
+
+        if ($timeDiff >= $this->timeout) {
+            fclose($handler);
+
+            return true;
+        }
+
+        fclose($handler);
+
+        return false;
     }
 
     public function useTcp(): self
