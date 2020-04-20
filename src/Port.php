@@ -24,7 +24,7 @@ class Port
     protected $protocol = self::PROTOCOL_TCP;
 
     /** @var float */
-    protected $timeout = 0.5;
+    protected $timeout = 0.25;
 
     /** @var array */
     protected $protocols = ['tcp', 'tls', 'udp', 'ssl'];
@@ -169,20 +169,17 @@ class Port
 
         $startTime = time();
 
-        $header = fread($handler, 1);
+        fread($handler, 1);
 
         $endTime = time();
 
         $timeDiff = $endTime - $startTime;
 
+        fclose($handler);
 
         if ($timeDiff >= $this->timeout) {
-            fclose($handler);
-
             return true;
         }
-
-        fclose($handler);
 
         return false;
     }
