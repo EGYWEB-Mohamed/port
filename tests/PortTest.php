@@ -19,21 +19,21 @@ class PortTest extends TestCase
         $this->port = new Port($this->domain);
     }
 
-    public function test_throws_exception_if_port_not_valid()
+    public function test_throws_exception_if_port_not_valid(): void
     {
         $this->expectException(InvalidArgument::class);
 
-        $this->port->check('akjshdaksjhdakjshdka');
+        $this->port->check('test');
     }
 
-    public function test_throws_exception_if_protocol_not_valid()
+    public function test_throws_exception_if_protocol_not_valid(): void
     {
         $this->expectException(InvalidArgument::class);
 
         $this->port->check([80 => 'abc']);
     }
 
-    public function test_throws_exception_if_port_and_protocol_not_valid()
+    public function test_throws_exception_if_port_and_protocol_not_valid(): void
     {
         $this->expectException(InvalidArgument::class);
 
