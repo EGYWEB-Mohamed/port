@@ -70,6 +70,11 @@ class Port
         return $this->domain;
     }
 
+    public function getDefaultPorts(): array
+    {
+        return $this->defaultPorts;
+    }
+
     public function getProtocols(): array
     {
         return $this->protocols;

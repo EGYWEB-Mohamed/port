@@ -90,6 +90,13 @@ class PortTest extends TestCase
         $this->assertSame($domain, $this->domain);
     }
 
+    public function test_can_get_default_ports(): void
+    {
+        $ports = $this->port->getDefaultPorts();
+
+        $this->assertArrayHasKey(80, $ports);
+    }
+
     public function test_can_get_protocols(): void
     {
         $protocols = $this->port->getProtocols();

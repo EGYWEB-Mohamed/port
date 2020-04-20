@@ -5,7 +5,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/gemzio/port.svg?style=flat-square)](https://scrutinizer-ci.com/g/gemzio/port)
 [![Total Downloads](https://img.shields.io/packagist/dt/gemz/port.svg?style=flat-square)](https://packagist.org/packages/gemz/port)
 
-Check ports of a domain. This package uses under the hood [ReactPHP](https://github.com/reactphp/reactphp).
+Check ports with protocol. This package uses under the hood [ReactPHP Promises](https://github.com/reactphp/promise).
 
 ## Installation
 
@@ -20,8 +20,9 @@ composer require gemz/port
 ``` php
 use \Gemz\Port\Port;
 
-$ports = new Port('gemz.io');
-$ports = Port::for('gemz.io');
+$checks = new Port('gemz.io');
+// or
+$checks = Port::for('gemz.io');
 
 // check all default ports on tcp
 $checks = Port::for('gemz.io')->check();
@@ -35,15 +36,21 @@ $checks = Port::for('gemz.io')->useUdp()->check(110, 140);
 // check only specific ports on tls
 $checks = Port::for('gemz.io')->useTls()->check(443);
 
-// check with array for specific port <-> protocol checks
-// if protocol is requested other protocol settings via useTcp() and so on will be ignored
-$checks = Port::for('gemz.io')->check([80 => 'tcp', 2525 => 'udp', 443 => 'tls']);
+// check only specific ports on ssl
+$checks = Port::for('gemz.io')->useSsl()->check(443);
+
+// check with array for specific port => protocol checks
+// if global setting will be ignored
+$checks = Port::for('gemz.io')->useTcp()->check([80 => 'tcp', 2525 => 'udp', 443 => 'tls']);
 
 // check with array for specific port 
 $checks = Port::for('gemz.io')->useTcp()->check([80, 2525, 443]);
 
 // get supported protocols
 $protocols = Port::for('gemz.io')->getProtocols();
+
+// get default ports
+$ports = Port::for('gemz.io')->getDefaultPorts();
 
 // get domain
 $protocols = Port::for('gemz.io')->getDomain();
