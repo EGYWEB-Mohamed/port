@@ -1,6 +1,6 @@
 <?php
 
-namespace Gemz\Port\Exceptions;
+namespace Msaid\Port\Exceptions;
 
 class InvalidArgument extends \InvalidArgumentException
 {
