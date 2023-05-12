@@ -1,6 +1,6 @@
 <?php
 
-namespace Gemz\Port;
+namespace Msaid\Port;
 
 use React\Promise\Deferred;
 use React\Promise\PromiseInterface;
@@ -8,7 +8,7 @@ use React\Socket\Connector;
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface;
 use React\Socket\ConnectionInterface;
-use Gemz\Port\Exceptions\InvalidArgument;
+use Msaid\Port\Exceptions\InvalidArgument;
 
 class Port
 {
