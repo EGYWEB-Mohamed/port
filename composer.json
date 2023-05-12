@@ -1,12 +1,12 @@
 {
-    "name": "gemz/port",
+    "name": "msaid/port",
     "description": "Domain Port Check",
     "keywords": [
-        "gemz",
+        "msaid",
         "port",
         "reactPhp"
     ],
-    "homepage": "https://github.com/gemzio/port",
+    "homepage": "https://github.com/EGYWEB-Mohamed/port",
     "license": "MIT",
     "authors": [
         {
@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Gemz\\Port\\": "src"
+            "Msaid\\Port\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Gemz\\Port\\Tests\\": "tests"
+            "Msaid\\Port\\Tests\\": "tests"
         }
     },
     "scripts": {
