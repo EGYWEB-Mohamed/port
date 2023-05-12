@@ -1,9 +1,9 @@
 <?php
 
-namespace Gemz\Port\Tests;
+namespace Msaid\Port\Tests;
 
-use Gemz\Port\Exceptions\InvalidArgument;
-use Gemz\Port\Port;
+use Msaid\Port\Exceptions\InvalidArgument;
+use Msaid\Port\Port;
 use PHPUnit\Framework\TestCase;
 
 class PortTest extends TestCase
